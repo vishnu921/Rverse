@@ -23,94 +23,101 @@ const getReviews = async (req, res) => {
 const getReview = async (req, res) => {
   const { id } = req.params
 
-  try {
-    const review = await Review.findById(id);
-
-    res.status(200).json(review)
-
-  } catch (error) {
-    res.status(404).json({message: error.message})
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'No such Review exists'})
   }
+
+  const review = await Review.findById(id)
+
+  if (!review) {
+    return res.status(404).json({error: 'No such Review exists'})
+  }
+
+  res.status(200).json(review)
 }
 
 // Get reviews using search
 const getReviewsBySearch = async (req, res) => {
-  const { searchQuery, tags } = req.query;
+  const { searchQuery, tags } = req.query
 
   try {
-    const title = new RegExp(searchQuery, 'i');
+    const title = new RegExp(searchQuery, 'i')
 
-    const reviews = await Review.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ] });
+    const reviews = await Review.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ] })
 
-    res.json({ data: reviews });
+    res.json({ data: reviews })
 
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(404).json({ message: error.message })
   }
 }
 
 // Post a new review
 const postReview = async (req, res) => {
-  const review = req.body;
+  const review = req.body
 
-  const newReview = new Review({ ...review, creator: req.userId });
-
+  const newReview = new Review({ ...review, creator: req.userId })
+  
   try {
-    await newReview.save();
+    await newReview.save()
 
-    res.status(201).json(newReview);
+    res.status(201).json(newReview)
 
   } catch (error) {
-    res.status(409).json({ message: error.message });
+    res.status(409).json({ message: error.message })
   }
 }
 
 // update a review
 const updateReview = async (req, res) => {
-  const { id:_id } = req.params;
-  const review = req.body;
+  const { id:_id } = req.params
+  const review = req.body
 
-  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No such review exists');
+  if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No such review exists')
 
-  const updatedReview = await Review.findByIdAndUpdate(_id, { ...review, _id }, {new: true});
+  const updatedReview = await Review.findByIdAndUpdate(_id, { ...review, _id }, {new: true})
   
-  res.json(updatedReview);  
+  res.json(updatedReview)
 }
 
 // Delete a review
 const deleteReview = async (req, res) => {
-  const{ id } = req.params;
+  const{ id } = req.params
 
-  if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No such review exists');
+  if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No such review exists')
 
-  await Review.findByIdAndRemove(id);
+  const review = await Review.findByIdAndRemove(id)
 
-  res.json({ message: 'Post deleted successfully'});
+  if (!review) {
+    return res.status(404).json({ error: 'No such review exists' })
+  }
+
+  res.status(200).json({ message: 'Post deleted successfully'})
 }
 
 // Handle likes
 const likeReview = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params
 
-  if(!req.userId) return res.json({ message: 'Unauthenticated' });
+  if(!req.userId) return res.json({ message: 'Unauthenticated' })
 
-  if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No such Review exists');
+  if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No such Review exists')
 
-  const review = await Review.findById(id);
+  const review = await Review.findById(id)
 
-  const index = review.likes.findIndex((id) => id === String(req.userId));
+  const index = review.likes.findIndex((id) => id === String(req.userId))
 
   if(index === -1){
       //like a post
-      review.likes.push(req.userId);
+      review.likes.push(req.userId)
   } else {
       //dislike a liked post
-      review.likes = review.likes.filter((id) => id !== String(req.userId));
+      review.likes = review.likes.filter((id) => id !== String(req.userId))
   }
 
-  const updatedReview = await Review.findByIdAndUpdate(id, review, { new: true });
+  const updatedReview = await Review.findByIdAndUpdate(id, review, { new: true })
 
-  res.json(updatedReview);
+  res.json(updatedReview)
 }
 
 
