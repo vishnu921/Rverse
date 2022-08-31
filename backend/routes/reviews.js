@@ -8,7 +8,7 @@ const {
   deleteReview,
   likeReview
 } = require('../controllers/reviewController')
-
+const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
 
@@ -22,15 +22,15 @@ router.get('/', getReviews)
 router.get('/:id', getReview)
 
 // Post a new review
-router.post('/', postReview)
+router.post('/', requireAuth, postReview)
 
 // Update a review
-router.patch('/:id', updateReview)
+router.patch('/:id', requireAuth, updateReview)
 
 // Delete a review
-router.delete('/:id', deleteReview)
+router.delete('/:id', requireAuth, deleteReview)
 
 // Update likes on a review
-router.patch('/:id/likeReview', likeReview)
+router.patch('/:id/likeReview', requireAuth, likeReview)
 
 module.exports = router
