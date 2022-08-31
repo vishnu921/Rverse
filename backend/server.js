@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const reviewRoutes = require('./routes/reviews')
+const userRoutes = require('./routes/users')
 const PORT = process.env.PORT || 4000;
 
 const app = express()
@@ -15,6 +16,7 @@ app.use(cors());
 
 // routes
 app.use('/api/reviews', reviewRoutes)
+app.use('/api/user', userRoutes)
 
 app.get('/', (req, res) => {
   res.send('Welcome to backend API')
