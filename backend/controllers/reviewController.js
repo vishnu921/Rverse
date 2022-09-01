@@ -117,7 +117,9 @@ const likeReview = async (req, res) => {
 
   if(!req.userId) return res.json({ message: 'Unauthenticated' })
 
-  if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No such Review exists')
+  if(!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send('No such Review exists')
+  }
 
   const review = await Review.findById(id)
 
@@ -136,6 +138,20 @@ const likeReview = async (req, res) => {
   res.json(updatedReview)
 }
 
+const commentReview = async (req, res) => {
+  const { id } = req.params
+  const { value } = req.body
+
+  if(!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send('No such Review exists')
+  }
+
+  const review = await Review.findById(id)
+  review.comments.push(value)
+
+  const updatedReview = await Review.findByIdAndUpdate(id, review, { new: true })
+  res.json(updatedReview)
+}
 
 module.exports = {
   getReviews,
@@ -145,5 +161,6 @@ module.exports = {
   postReview,
   updateReview,
   deleteReview,
-  likeReview
+  likeReview,
+  commentReview
 }

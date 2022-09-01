@@ -7,7 +7,8 @@ const {
   postReview,
   updateReview,
   deleteReview,
-  likeReview
+  likeReview,
+  commentReview
 } = require('../controllers/reviewController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -36,5 +37,8 @@ router.delete('/:id', requireAuth, deleteReview)
 
 // Update likes on a review
 router.patch('/:id/likeReview', requireAuth, likeReview)
+
+// Update comments on a post
+router.post('/:id/commentReview', requireAuth, commentReview)
 
 module.exports = router
