@@ -15,8 +15,7 @@ const reviewSchema = new Schema({
       type: String
     },
     creator: {
-      type: String,
-      required: true
+      type: String
     },
     tags: [String],
     selectedFile: String,

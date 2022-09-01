@@ -2,8 +2,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 
-const createToken = (email, _id) => {
-  return jwt.sign({ email,_id }, process.env.SECRET, { expiresIn: '3d' })
+const createToken = (email, id) => {
+  return jwt.sign({ email,id }, process.env.SECRET, { expiresIn: '3d' })
 }
 
 // Login a user

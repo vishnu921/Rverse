@@ -71,7 +71,7 @@ const getReviewsBySearch = async (req, res) => {
 // Post a new review
 const postReview = async (req, res) => {
   const review = req.body
-
+  
   const newReview = new Review({ ...review, creator: req.userId })
   
   try {
@@ -115,7 +115,11 @@ const deleteReview = async (req, res) => {
 const likeReview = async (req, res) => {
   const { id } = req.params
 
-  if(!req.userId) return res.json({ message: 'Unauthenticated' })
+  if(!req.userId) {
+    console.log('Unauthenticated User')
+    return res.json({ message: 'Unauthenticated User' })
+  }
+  
 
   if(!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).send('No such Review exists')

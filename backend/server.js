@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const reviewRoutes = require('./routes/reviews')
 const userRoutes = require('./routes/users')
 const PORT = process.env.PORT || 4000;
@@ -10,9 +11,9 @@ const PORT = process.env.PORT || 4000;
 const app = express()
 
 // middlewares
-app.use(express.json({ limit: "30mb", extended: true }))
-app.use(express.urlencoded({ limit: "30mb", extended: true }))
-app.use(cors());
+app.use(bodyParser.json({limit:"30mb", extended:true}))
+app.use(bodyParser.urlencoded({limit:"30mb", extended:true}))
+app.use(cors())
 
 // routes
 app.use('/api/reviews', reviewRoutes)
