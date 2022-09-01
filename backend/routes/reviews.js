@@ -1,6 +1,7 @@
 const express = require('express')
 const {
   getReviews,
+  getMyReviews,
   getReview,
   getReviewsBySearch,
   postReview,
@@ -20,6 +21,9 @@ router.get('/', getReviews)
 
 // Get reviews by id
 router.get('/:id', getReview)
+
+// Get reviews of particular user
+router.get('/myreviews/:id', requireAuth, getMyReviews)
 
 // Post a new review
 router.post('/', requireAuth, postReview)

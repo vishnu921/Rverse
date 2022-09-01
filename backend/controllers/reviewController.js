@@ -24,16 +24,32 @@ const getReview = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such Review exists'})
+    return res.status(404).json({ message: 'No such Review exists'})
   }
 
   const review = await Review.findById(id)
 
   if (!review) {
-    return res.status(404).json({error: 'No such Review exists'})
+    return res.status(404).json({ message: 'No such Review exists'})
   }
 
   res.status(200).json(review)
+}
+
+// Get my reviews
+const getMyReviews = async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const total = await Review.countDocuments({})
+    const reviews = await Review.find({ creator: id })
+
+    const sent = {data: reviews, currentPage: 1, numberOfPages: Math.ceil(total/8)}
+    res.status(200).json(sent)
+
+  } catch (error) {
+    res.status(404).json({ message: error.message })
+  }
 }
 
 // Get reviews using search
@@ -89,7 +105,7 @@ const deleteReview = async (req, res) => {
   const review = await Review.findByIdAndRemove(id)
 
   if (!review) {
-    return res.status(404).json({ error: 'No such review exists' })
+    return res.status(404).json({ message: 'No such review exists' })
   }
 
   res.status(200).json({ message: 'Post deleted successfully'})
@@ -123,6 +139,7 @@ const likeReview = async (req, res) => {
 
 module.exports = {
   getReviews,
+  getMyReviews,
   getReview,
   getReviewsBySearch,
   postReview,

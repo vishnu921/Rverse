@@ -7,9 +7,17 @@ const reviewSchema = new Schema({
         type: String,
         required: true
     },
-    description: String,
-    name: String,
-    creator: String,
+    description: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String
+    },
+    creator: {
+      type: String,
+      required: true
+    },
     tags: [String],
     selectedFile: String,
     likes: {
