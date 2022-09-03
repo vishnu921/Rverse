@@ -13,8 +13,8 @@ const App = () => {
 
     return ( 
         <BrowserRouter>
-            <Container maxWidth='xl'>
-                <Navbar />
+            <Navbar />
+            <Container maxWidth='xl' className="main-container">
                 <Switch>
                     <Route path='/auth' exact component={()=> (!user ? <Auth /> : <Redirect to='/reviews' />)} />
                     <Route path='/' exact component={()=><Redirect to='/reviews'/>} />

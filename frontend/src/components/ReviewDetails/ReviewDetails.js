@@ -20,13 +20,13 @@ const ReviewDetails = () => {
 
     useEffect(() => {
         dispatch(getReview(id));
-    }, [id])
+    }, [dispatch, id])
     
     useEffect(()=>{
         if(review){
             dispatch(getReviewBySearch({search:'none',tags: review?.tags.join(',')}))
         }
-    },[review])
+    },[dispatch, review])
     
     if (!review || isLoading) {
         return <Paper elevation={6} className={classes.loadingPaper}>
@@ -73,7 +73,7 @@ const ReviewDetails = () => {
                                 <Typography gutterButtom variant='subtitle2'>{name}</Typography>
                                 <Typography gutterButtom variant='subtitle2'>{description}</Typography>
                                 <Typography gutterButtom variant='subtitle1'>Likes : {likes.length}</Typography>
-                                <img src={selectedFile || noImage} width='200px' />
+                                <img src={selectedFile || noImage} width='200px' alt={title}/>
                             </div>
                         ))}
                     </div>

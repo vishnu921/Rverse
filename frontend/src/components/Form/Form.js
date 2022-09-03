@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 
 import useStyles from './styles'
-import { createReview, updateReview , getMyReviews} from "../../actions/reviews"
+import { createReview, updateReview } from "../../actions/reviews"
 
 const Form = ({currentId, setCurrentId}) => {
     const [reviewData, setReviewData] = useState({
@@ -24,11 +24,6 @@ const Form = ({currentId, setCurrentId}) => {
         if(review)
             setReviewData(review);
     },[review])
-
-    const myReviews = ()=>{
-        console.log('my reviews');
-        dispatch(getMyReviews(user.result._id));
-    }
 
     const handleSubmit = (e)=>{
         e.preventDefault();
@@ -59,7 +54,6 @@ const Form = ({currentId, setCurrentId}) => {
 
     return ( 
         <Paper className={classes.paper} elevation={3}>
-            <Button color='primary' variant='outlined' onClick={()=> myReviews()}>My Reviews</Button>
             <form  autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant="h6">{currentId ? 'Editing' : 'Creating'} a Review</Typography>
                 <TextField name='title' variant='outlined' label='Title' fullWidth value={reviewData.title} onChange={(e)=> setReviewData({...reviewData, title: e.target.value})} />

@@ -7,7 +7,7 @@ import ChipInput from 'material-ui-chip-input'
 import Form from "../Form/Form"
 import Reviews from "../Reviews/Reviews"
 import { useDispatch } from 'react-redux'
-import { getReviews, getReviewBySearch } from '../../actions/reviews'
+import { getReviewBySearch } from '../../actions/reviews'
 import useStyles from './styles'
 import Pagination from '../Pagination'
 
