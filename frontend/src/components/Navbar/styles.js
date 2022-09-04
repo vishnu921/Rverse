@@ -8,12 +8,11 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '10px 70px',
+    padding: '2px 30px',
     position: 'fixed',
     top: '0',
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      padding: '10px 0',
+      padding: '2px 0',
     },
   },
   heading: {
@@ -28,27 +27,16 @@ export default makeStyles((theme) => ({
   },
   toolbar: {
     display: 'flex',
-    justifyContent: 'center',
-    [theme.breakpoints.down('sm')]:{
-      marginTop: '10px'
-    }
+    justifyContent: 'center'
   },
   profile: {
     display: 'flex',
     gap: '15px',
     alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto',
-      marginTop: 20,
-      justifyContent: 'center',
-    },
   },
   userName: {
     alignItems: 'center',
     textAlign: 'center',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none'
-    },
   },
   brandContainer: {
     display: 'flex',
@@ -58,5 +46,37 @@ export default makeStyles((theme) => ({
   purple: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    cursor: 'pointer'
   },
+  profileOptions: {
+    padding: '10px',
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '5px',
+    position: 'absolute',
+    width: '300px',
+    top: '60px',
+    right: '20px',
+    borderRadius: '5px',
+    [theme.breakpoints.down('sm')]: {
+      right: '10px',
+    },
+  },
+  profileOption: {
+    cursor: 'pointer',
+    width: '100%',
+    padding: '10px 15px',
+    borderRadius: '5px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    "&:hover": {
+      backgroundColor: '#F0F2F5'
+    },
+  },
+  hide: {
+    display: 'none',
+  }
 }));

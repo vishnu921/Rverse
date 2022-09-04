@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Typography, Toolbar, Avatar, Button } from "@material-ui/core";
+import { AppBar, Typography, Toolbar, Avatar, Button, Paper } from "@material-ui/core";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import RateReviewOutlinedIcon from '@material-ui/icons/RateReviewOutlined';
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -18,8 +20,14 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleProfile = () => {
+    isOpen === true ? setIsOpen(false) : setIsOpen(true)
+  }
 
   const logout = () => {
+    toggleProfile();
     dispatch({ type: LOGOUT });
     setUser(null);
   };
@@ -43,6 +51,7 @@ const Navbar = () => {
 
   const myReviews = ()=>{
     console.log('my reviews');
+    toggleProfile();
     dispatch(getMyReviews(user.result._id));
   }
 
@@ -55,21 +64,29 @@ const Navbar = () => {
       <Toolbar className={classes.toolbar}>
         {user ? (
           <div className={classes.profile}>
-            <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl} >
+            <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl} onClick={toggleProfile}>
               {user.result.name.charAt(0)}
             </Avatar>{" "}
-            <Typography className={classes.userName} variant="h6">
-              {user.result.name}
-            </Typography>
-            <Button color='primary' variant='contained' onClick={myReviews}>
-              My Reviews
-            </Button>
-            <Button variant="contained" className={classes.logout} color="secondary" onClick={logout} >
-              Logout
-            </Button>
+            <Paper className={`${classes.profileOptions} ${isOpen === true ? '' : classes.hide}`} elevation={3}>
+              <div className={classes.profileOption}>
+                <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl} >
+                  {user.result.name.charAt(0)}
+                </Avatar>{" "}
+                <Typography className={classes.userName} variant="h6">
+                  {user.result.name}
+                </Typography>
+              </div>
+              <div className={classes.profileOption} onClick={myReviews}>
+                <RateReviewOutlinedIcon /> My Reviews
+              </div>
+              <hr />
+              <div className={classes.profileOption} onClick={logout} >
+                <ExitToAppIcon /> Logout
+              </div>
+            </Paper>
           </div>
         ) : (
-          <Button onClick={(e) => signin(e)} variant="contained" color="primary" >
+          <Button onClick={signin} variant="contained" color="primary" >
             Login or Register
           </Button>
         )}
