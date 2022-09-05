@@ -25,31 +25,34 @@ const CommentSection = ({ review }) => {
     return (
         <div>
             <div className={classes.commentsOuterContainer}>
+                <Typography gutterButtom variant='h6' style={{ fontWeight: '700', color: '#077fa8' }}>Comments</Typography>
+                {
+                    user?.result?.name && (
+                        <div className={classes.comment}>
+                            <TextField fullWidth minRows={1} variant='filled' label='Write a Comment...' multiline value={comment} onChange={(e) => setComment(e.target.value)} />
+                            <div className={classes.commentButton}>
+                                <Button color='primary' fullWidth disabled={!comment} variant='contained' onClick={handleClick}>
+                                    comment
+                                </Button>
+                            </div>
+                        </div>
+                    )
+                }
+
                 <div className={classes.commentsInnerContainer}>
-                    
                     {
                         comments.map((c, i) => (
-                            <Typography key={i} gutterButtom variant='subtitle1'>
-                                <strong>{c.split(': ')[0]}</strong>
-                                {c.split(':')[1]}
-                            </Typography>
+                            <div key={i} className={classes.singleCommentContainer}>
+                                <Typography gutterButtom variant='subtitle2' className={classes.singleComment}>
+                                    <strong>{c.split(': ')[0]}</strong>:
+                                    {c.split(':')[1]}
+                                </Typography>
+                            </div>
                         ))
                       
                     }
                    {/* <div ref={commentsRef} />  */}
                 </div>
-                
-                {
-                    user?.result?.name && (
-                        <div className={classes.comment}>
-                            <Typography gutterButtom variant='h6' style={{ color: '#077fa8' }}>Write a Comment..</Typography>
-                            <TextField fullWidth minRows={1} variant='outlined' label='Comment' multiline value={comment} onChange={(e) => setComment(e.target.value)} />
-                            <Button style={{ marginTop: '10px' }} color='primary' fullWidth disabled={!comment} variant='contained' onClick={handleClick}>
-                                comment
-                            </Button>
-                        </div>
-                    )
-                }
 
             </div>
         </div>

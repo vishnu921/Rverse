@@ -38,20 +38,32 @@ export default makeStyles((theme) => ({
     flex: 1,
   },
   recommendedReviews: {
+    marginTop: '20px'
+  },
+  recommendedReview: {
+    height: '100%',
+    borderRadius: '5px',
+    padding: '20px',
+    cursor:'pointer',
     display: 'flex',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-    },
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
   loadingPaper: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center', 
     alignItems: 'center', 
     padding: '20px',
     height: '39vh',
   },
+  description: {
+    whiteSpace: 'pre-line',
+    marginBottom: '30px',
+  },
   commentsOuterContainer:{
     display: 'flex',
+    flexDirection: 'column',
     justifyContent:'space-between',
     [theme.breakpoints.down('sm')]:{
       flexDirection:'column'
@@ -63,11 +75,29 @@ export default makeStyles((theme) => ({
     marginRight:'30px'
   },
   comment:{
-    width: '60%',
+    marginBottom: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    width: '70%',
     [theme.breakpoints.down('sm')]:{
-      width:'100%'
+      width:'100%',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
     }
-  }
-
+  },
+  singleComment: {
+    width: 'fit-content',
+    padding: '5px 10px',
+    backgroundColor: '#F0F2F5',
+    borderRadius: '5px',
+  },
+  singleCommentContainer: {
+    maxWidth: '60%',
+    marginBottom: '8px',
+    [theme.breakpoints.down('sm')]:{
+      maxWidth:'90%',
+    }
+  },
 }));
 

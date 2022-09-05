@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core';
+import { Grid,Paper, Typography, CircularProgress, Divider } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
@@ -30,10 +30,8 @@ const ReviewDetails = () => {
     
     if (!review || isLoading) {
         return <Paper elevation={6} className={classes.loadingPaper}>
-            <div style={{alignContent: 'center'}}>
             <CircularProgress size='7em' style={{marginBottom:'20px'}} />
             <Typography>Loading Image may take some time</Typography>
-            </div>
         </Paper>
     }
     
@@ -41,7 +39,15 @@ const ReviewDetails = () => {
     const recommendedReviews = reviews.filter(({_id})=> _id !== review._id);
     const openReview = (_id)=> history.push(`/reviews/${_id}`); 
 
+    const shortDescription = (description) => {
+        if (description.trim().length > 200) {
+            return description.substring(0, 200).concat('...')
+        }
+        return description
+    }
+
     return (
+        <div>
         <Paper className={classes.ReviewDetailsContainer} elevation={6}>
             <div className={classes.card}>
                 <div className={classes.section}>
@@ -50,37 +56,38 @@ const ReviewDetails = () => {
                         <img className={classes.media} src={review.selectedFile || noImage} alt={review.title} />
                     </div>
                     <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{review.tags.map((tag) => `#${tag} `)}</Typography>
-                    <Typography gutterBottom variant="body1" component="p">{review.description}</Typography>
-                    <Typography variant="body1" style={{fontWeight: '600', marginTop: '20px'}}>Created by: {review.name}</Typography>
+                    <Typography gutterBottom variant="body1" component="p" className={classes.description}>{review.description}</Typography>
+                    <Typography variant="body1" style={{fontWeight: '600'}}>Created by: {review.name}</Typography>
                     <Typography variant="body2">{moment(review.createdAt).fromNow()}</Typography>
                     <Divider style={{ margin: '10px 0' }} />
-                    <Typography gutterButtom variant='h6' style={{ color: '#077fa8' }}>Comments</Typography>
                     <CommentSection review={review} />
                     <Divider style={{ margin: '10px 0' }} />
                 </div>
             </div>
+        </Paper>
 
            {
             recommendedReviews.length && (
-                <div className={classes.section}>
-                    <Typography gutterBottom variant='h5'>You might also like </Typography>
+                <div>
+                    <Typography gutterBottom variant='h5' style={{fontWeight: '800', marginTop: '50px'}}>You might also like </Typography>
                     <Divider />
-                    <div className={classes.recommendedReviews}>
+                    <Grid className={classes.recommendedReviews} container alignItems='stretch' spacing={3}>
                         {recommendedReviews.map(({title,description,name,likes,selectedFile,_id})=>(
-                            <div style={{margin:'20px',cursor:'pointer'}} onClick={()=>openReview(_id)} key={_id}>
-                                <Typography gutterButtom variant='h6'>{title}</Typography>
-                                <Typography gutterButtom variant='subtitle2'>{name}</Typography>
-                                <Typography gutterButtom variant='subtitle2'>{description}</Typography>
-                                <Typography gutterButtom variant='subtitle1'>Likes : {likes.length}</Typography>
-                                <img src={selectedFile || noImage} width='200px' alt={title}/>
-                            </div>
+                            <Grid item  key={_id} xs={12} sm={12} md={6} lg={3}>
+                                <Paper  className={classes.recommendedReview} elevation={6} onClick={()=>openReview(_id)}>
+                                    <Typography gutterButtom variant='h6'style={{fontWeight: '600'}}>{title}</Typography>
+                                    <Typography gutterButtom variant='subtitle2' style={{fontWeight: '600', marginBottom: '20px'}}>{name}</Typography>
+                                    <Typography gutterButtom variant='subtitle2'>{shortDescription(description)}</Typography>
+                                    <Typography gutterButtom variant='subtitle1'style={{fontWeight: '600', marginTop: '20px'}}>Likes : {likes.length}</Typography>
+                                    <img src={selectedFile || noImage}  width='200px' alt={title}/>
+                                </Paper>
+                            </Grid>
                         ))}
-                    </div>
+                    </Grid>
                 </div>
             )
            }
-        </Paper>
-        
+        </div>
 
     );
 }
