@@ -22,6 +22,13 @@ const Review = ({ review, setCurrentId }) => {
     const [likes, setLikes] = useState(review?.likes)
     const userId = (user?.result?.googleId || user?.result?._id)
     const hasLikedReview = likes.find((like) => like === userId)
+    let newDescription = ""
+
+    if (review.description.trim().length > 200) {
+        newDescription = review.description.substring(0, 200).concat('...')
+    } else {
+        newDescription = review.description
+    }
 
     const handleLike = () => {
         dispatch(likeReview(review._id))
@@ -31,6 +38,7 @@ const Review = ({ review, setCurrentId }) => {
             setLikes([...likes, userId])
         }
     };
+
     const Likes = () => {
         if (likes.length > 0) {
             return likes.find((like) => like === userId)
@@ -67,9 +75,9 @@ const Review = ({ review, setCurrentId }) => {
                 <Typography className={classes.title} variant='h6' gutterBottom>{review.title}</Typography>
 
                 <CardContent>
-                    <div style={{ overflow: "hidden", textOverflow: "clip", height:'70px' }}>
+                    <div>
                         <Typography nowrap="true" variant='body2' color='textSecondary'>
-                           {review.description}
+                           {newDescription}
                         </Typography>
                     </div>
                     

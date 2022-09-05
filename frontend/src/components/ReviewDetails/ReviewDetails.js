@@ -32,7 +32,6 @@ const ReviewDetails = () => {
         return <Paper elevation={6} className={classes.loadingPaper}>
             <div style={{alignContent: 'center'}}>
             <CircularProgress size='7em' style={{marginBottom:'20px'}} />
-            
             <Typography>Loading Image may take some time</Typography>
             </div>
         </Paper>
@@ -43,21 +42,21 @@ const ReviewDetails = () => {
     const openReview = (_id)=> history.push(`/reviews/${_id}`); 
 
     return (
-        <Paper style={{ padding: '20px', borderRadius: '15px'}} elevation={6}>
+        <Paper className={classes.ReviewDetailsContainer} elevation={6}>
             <div className={classes.card}>
                 <div className={classes.section}>
-                    <Typography variant="h4" component="h4" style={{color:'#0a6cbd'}}>{review.title}</Typography>
+                    <Typography variant="h4" component="h4" style={{fontWeight: '700'}}>{review.title}</Typography>
+                    <div className={classes.mediaContainer}>
+                        <img className={classes.media} src={review.selectedFile || noImage} alt={review.title} />
+                    </div>
                     <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{review.tags.map((tag) => `#${tag} `)}</Typography>
                     <Typography gutterBottom variant="body1" component="p">{review.description}</Typography>
-                    <Typography variant="h6">Created by: {review.name}</Typography>
-                    <Typography variant="body1">{moment(review.createdAt).fromNow()}</Typography>
+                    <Typography variant="body1" style={{fontWeight: '600', marginTop: '20px'}}>Created by: {review.name}</Typography>
+                    <Typography variant="body2">{moment(review.createdAt).fromNow()}</Typography>
                     <Divider style={{ margin: '10px 0' }} />
                     <Typography gutterButtom variant='h6' style={{ color: '#077fa8' }}>Comments</Typography>
                     <CommentSection review={review} />
                     <Divider style={{ margin: '10px 0' }} />
-                </div>
-                <div className={classes.imageSection}>
-                    <img className={classes.media} src={review.selectedFile || noImage} alt={review.title} />
                 </div>
             </div>
 

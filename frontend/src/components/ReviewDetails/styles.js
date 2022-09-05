@@ -1,13 +1,21 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+  ReviewDetailsContainer: {
+    padding: '10px', 
+    borderRadius: '10px'
+  },
+  mediaContainer: {
+    margin: '20px auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   media: {
-    borderRadius: '20px',
+    borderRadius: '0px',
     objectFit: 'cover',
     width: '100%',
-    height:'400px',
     [theme.breakpoints.down('sm')]:{
-      height:'250px'
     }
     
   },
@@ -26,7 +34,6 @@ export default makeStyles((theme) => ({
     },
   },
   section: {
-    borderRadius: '20px',
     margin: '10px',
     flex: 1,
   },
@@ -37,7 +44,11 @@ export default makeStyles((theme) => ({
     },
   },
   loadingPaper: {
-    display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px', borderRadius: '15px', height: '39vh',
+    display: 'flex',
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: '20px',
+    height: '39vh',
   },
   commentsOuterContainer:{
     display: 'flex',
