@@ -104,17 +104,17 @@ const Auth = () => {
                     <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
                         {isSignup ? 'Sign Up' : 'Log In'}
                     </Button>
-                    <GoogleLogin
+                    <GoogleLogin 
                         disabled
-                        clientId="1029936683974-2ejkpmdt6bqdn2jkav12km9jcgebvtam.apps.googleusercontent.com"
+                        clientId="#"
                         render={(renderProps) => (
-                            <Button className={classes.googleButton} color='primary' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant='contained'>
+                            <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained" >
                                 Google Sign In
                             </Button>
                         )}
                         onSuccess={googleSuccess}
                         onFailure={googleFailure}
-                        cookiePolicy='single_host_origin'
+                        cookiePolicy="single_host_origin"
                     />
                     
                 </form>

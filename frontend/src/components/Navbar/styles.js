@@ -50,19 +50,8 @@ export default makeStyles((theme) => ({
   },
   profileOptions: {
     padding: '10px',
-    backgroundColor: 'white',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    gap: '5px',
-    position: 'absolute',
-    width: '300px',
-    top: '60px',
-    right: '20px',
     borderRadius: '5px',
-    [theme.breakpoints.down('sm')]: {
-      right: '10px',
-    },
+    width: '250px',
   },
   profileOption: {
     cursor: 'pointer',
