@@ -3,7 +3,14 @@ This is a Social Media app using MERN Stack where users can create reviews on an
 
 ### Link: [rverse.netlify.app](https://rverse.netlify.app/)
 
+## Features:
+* Users will see reviews on their timelines and can like and comment on them.
+* Users can see the full detailed view of the reviews by clicking on it.
+* Sign-up and login with JWT authentication and password hashing with bcryptjs.
+* Search reviews by title and tags. 
+
 ## Website Views
+![all](https://user-images.githubusercontent.com/59504389/197829624-5d85775f-5659-4c36-aaba-9c0441e64715.png)
 
 ### Desktop View
 <p align="center">
