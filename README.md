@@ -14,7 +14,7 @@ This is a Social Media app using MERN Stack where users can create reviews on an
 
 ### Desktop View
 <p align="center">
-<img src="https://user-images.githubusercontent.com/59504389/197788103-8e28bd76-16b8-4014-abb9-2d6d1750f747.png" width="1000" height="500">
+<img src="https://user-images.githubusercontent.com/59504389/197788103-8e28bd76-16b8-4014-abb9-2d6d1750f747.png">
 </p>
 
 ### Mobile View
