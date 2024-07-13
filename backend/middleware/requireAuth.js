@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const requireAuth = async (req, res, next) => {
   try {
+    if (!req.headers.authorization) throw new Error('Unauthorized Access, No Token')
     const token = req.headers.authorization.split(" ")[1];
     const isCustomAuth = token.length < 500;
 
@@ -19,7 +20,8 @@ const requireAuth = async (req, res, next) => {
     }
     next();
   } catch (error) {
-      console.log(error);
+    res.status(401);
+    next(error);
   }
 }
 
