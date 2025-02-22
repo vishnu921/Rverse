@@ -24,8 +24,11 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use('/api/reviews', reviewRoutes)
 app.use('/api/user', userRoutes)
 
-app.get('/', (req, res) => {
-  res.send('Welcome to backend API')
+app.get('/health-check', (req, res) => {
+  res.status(200).send({
+    version: process.env.npm_package_version,
+    message: 'Welcome to backend API',
+  });
 })
 
 handleError(app);

@@ -1,6 +1,9 @@
 module.exports = function (app) {
   app.use((req, res, next) => {
-    res.status(404).json('Invalid Endpoint');
+    res.status(404).json({
+      success: false,
+      message: 'Invalid Endpoint'
+  });
     next();
   });
 
